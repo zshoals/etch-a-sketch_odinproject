@@ -1,16 +1,38 @@
 //Etch-a-sketch steps
-
-let numberOfSquares = 60;
-let containerLength = 100;
-let containerHeight = 100;
-let divArray = null;
     
 //Generate a list of divs and store it
 //In some sort of array
-for (let i = 0; i < numberOfSquares; i++) {
-    //Generate Div
-    divArray.push()
+
+function generateDivArray(numberOfSquares) {
+    for (let i = 0; i < numberOfSquares; i++) {
+        let divArray = [];
+        divArray.push(document.createElement("DIV"));
+
+        return divArray;
+    }
+}
+
+function initializeDivArray(divArray, containingElement) {
+    for (let i = 0; i < divArray.length; i++){
+        setDivSize(divArray[i], containingElement);
+        setClassName(divArray[i], "etch-box");
+    }
     
+    //huh?
+    //divArray.foreach(setDivSize(divTarget, containingElement));
+    //divArray.foreach(setClass(divTarget));
+}
+
+function setDivSize(divTarget, containingElement) {
+    //Set the size of each div based on screen size
+}
+
+function setClass(divTarget, className){
+    //set a class for a respective divtarget with a
+    //respective class name
+}
+
+
     //attach it to a screen container
 
 
