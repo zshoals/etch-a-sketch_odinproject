@@ -4,11 +4,27 @@ body {
 
     display: grid;
     grid: 100% / 100%;
+
+    background-color: grey;
+}
+
+h1 {
+    position: absolute;
+    left: 38%;
+    top: 15px;
+    justify-self: center;
+    color: white;
+    text-shadow: 1px 1px 5px black;
 }
 
 .active-space {
+    margin: 50px 0px 0px 0px;
     justify-self: center;
     align-self: center;
+    border: 50px solid darkred;
+    border-left: 150px solid darkred;
+    border-right: 150px solid darkred;
+    border-radius: 50px;
 }
 
 .etch-screen {
