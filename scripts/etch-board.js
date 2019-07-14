@@ -3,6 +3,12 @@
 //Generate a list of divs and store it
 //In some sort of array
 
+let etchWindow = document.querySelector("etch-screen");
+let etchGrid = generateDivArray(40);
+
+initializeDivArray(etchGrid, etchWindow);
+
+
 function generateDivArray(numberOfSquares) {
     for (let i = 0; i < numberOfSquares; i++) {
         let divArray = [];
@@ -13,29 +19,38 @@ function generateDivArray(numberOfSquares) {
 }
 
 function initializeDivArray(divArray, containingElement) {
-    for (let i = 0; i < divArray.length; i++){
-        setDivSize(divArray[i], containingElement);
-        setClass(divArray[i], "etch-box");
-        setEventListener(divArray[i]);
-    }
+    let divSize = calculateDivSize(divArray.length, containingElement);
     
-    //huh?
-    //divArray.foreach(setDivSize(divTarget, containingElement));
-    //divArray.foreach(setClass(divTarget));
+    for (let i = 0; i < divArray.length; i++) {
+        setDivSize(divArray[i], divSize);
+        setClass(divArray[i], "etch-box");
+        setDrawEventListener(divArray[i]);
+
+        attachDivToContainer(divArray[i], containingElement);
+    }  
 }
 
-function setDivSize(divTarget, containingElement) {
-    //Set the size of each div based on screen size
+function calculateDivSize(length, containingElement) {
+    let rectangle = containingElement.getBoundingClientRect();
+    return rectangle.length / length;
 }
 
-function setClass(divTarget, className){
-    //set a class for a respective divtarget with a
-    //respective class name
+function setDivSize(divTarget, edgeLength) {
+    divTarget.setAttribute("height", edgeLength);
+    divTarget.setAttribute("width", edgeLength);
+}
+
+
+function setClass(divTarget, className) {
     divTarget.setAttribute("class", className);
 }
 
-function setEventListener(divTarget) {
-    divTarget.addEventListener("mouseover", () => draw(this));
+function setDrawEventListener(divTarget) {
+    divTarget.addEventListener("mouseover", () => draw(divTarget));
+}
+
+function attachDivToContainer(divTarget, containingElement) {
+    containingElement.appendChild(divTarget);
 }
 
 function draw(divTarget) {
