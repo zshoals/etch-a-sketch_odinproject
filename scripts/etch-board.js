@@ -3,22 +3,25 @@
 //Generate a list of divs and store it
 //In some sort of array
 
-let etchWindow = document.querySelector("etch-screen");
-let etchGrid = generateDivArray(40);
+let squaresInRow = 50;
+let etchWindow = document.querySelector(".etch-screen");
+let etchGrid = generateDivArray(squaresInRow);
 
-initializeDivArray(etchGrid, etchWindow);
-
+initializeEtchGrid(squaresInRow, etchGrid, etchWindow);
 
 function generateDivArray(numberOfSquares) {
-    for (let i = 0; i < numberOfSquares; i++) {
-        let divArray = [];
-        divArray.push(document.createElement("DIV"));
+    let divArray = [];
+    let area = numberOfSquares * numberOfSquares;
 
-        return divArray;
+    for (let i = 0; i < area; i++) {
+        divArray.push(document.createElement("DIV"));
     }
+
+    return divArray;
 }
 
-function initializeDivArray(divArray, containingElement) {
+function initializeEtchGrid(rowSquares, divArray, containingElement) {
+
     let divSize = calculateDivSize(divArray.length, containingElement);
     
     for (let i = 0; i < divArray.length; i++) {
@@ -32,12 +35,14 @@ function initializeDivArray(divArray, containingElement) {
 
 function calculateDivSize(length, containingElement) {
     let rectangle = containingElement.getBoundingClientRect();
-    return rectangle.length / length;
+    return rectangle.width / length;
 }
 
 function setDivSize(divTarget, edgeLength) {
-    divTarget.setAttribute("height", edgeLength);
-    divTarget.setAttribute("width", edgeLength);
+    let lengthString = edgeLength.toString();
+    divTarget.style.height = `${lengthString}px`;
+    console.log(divTarget.style.height);
+    divTarget.style.width = `${lengthString}px`;
 }
 
 
@@ -54,7 +59,7 @@ function attachDivToContainer(divTarget, containingElement) {
 }
 
 function draw(divTarget) {
-    divTarget.setAttribute("background-color", "black");
+    divTarget.style.backgroundColor = "black";
 }
 
 
@@ -80,4 +85,3 @@ function draw(divTarget) {
 
     //========================================
 
-}

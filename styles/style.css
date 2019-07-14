@@ -1,0 +1,9 @@
+.etch-screen {
+    height: 300px;
+    width: 300px;
+}
+
+.etch-box {
+    display: inline-block;
+    border: 1px solid black;
+}
