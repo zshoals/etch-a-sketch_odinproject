@@ -1,6 +1,14 @@
 body {
     width: auto;
-    height: auto;
+    height: 850px;
+
+    display: grid;
+    grid: 100% / 100%;
+}
+
+.active-space {
+    justify-self: center;
+    align-self: center;
 }
 
 .etch-screen {
