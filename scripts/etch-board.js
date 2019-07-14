@@ -3,11 +3,15 @@
 //Generate a list of divs and store it
 //In some sort of array
 
+let drawMode = "rainbow";
+
 let squaresInRow = 50;
 let etchWindow = document.querySelector(".etch-screen");
 let etchGrid = generateDivArray(squaresInRow);
 
+initializeEtchScreen(squaresInRow, etchWindow);
 initializeEtchGrid(squaresInRow, etchGrid, etchWindow);
+
 
 function generateDivArray(numberOfSquares) {
     let divArray = [];
@@ -21,8 +25,7 @@ function generateDivArray(numberOfSquares) {
 }
 
 function initializeEtchGrid(rowSquares, divArray, containingElement) {
-
-    let divSize = calculateDivSize(divArray.length, containingElement);
+    let divSize = calculateDivSize(rowSquares, containingElement);
     
     for (let i = 0; i < divArray.length; i++) {
         setDivSize(divArray[i], divSize);
@@ -33,18 +36,32 @@ function initializeEtchGrid(rowSquares, divArray, containingElement) {
     }  
 }
 
+function initializeEtchScreen(rowSquares, container) {
+    let bounds = container.getBoundingClientRect();
+    //+1 is a hack, helps maintain proper spacing LUL
+    let boundsHeight = (bounds.height / rowSquares) + 1;
+    console.log("huh" + boundsHeight);
+    
+    //gross
+    container.setAttribute("style", 
+    `
+    display: grid;
+    grid: repeat(${rowSquares}, ${boundsHeight}px) / repeat(${rowSquares}, ${boundsHeight}px);
+    `);
+}
+
 function calculateDivSize(length, containingElement) {
     let rectangle = containingElement.getBoundingClientRect();
-    return rectangle.width / length;
+    console.log(rectangle.width);
+    console.log(rectangle.width / length);
+    return Math.floor(rectangle.width / length);
 }
 
 function setDivSize(divTarget, edgeLength) {
     let lengthString = edgeLength.toString();
     divTarget.style.height = `${lengthString}px`;
-    console.log(divTarget.style.height);
     divTarget.style.width = `${lengthString}px`;
 }
-
 
 function setClass(divTarget, className) {
     divTarget.setAttribute("class", className);
@@ -59,7 +76,20 @@ function attachDivToContainer(divTarget, containingElement) {
 }
 
 function draw(divTarget) {
-    divTarget.style.backgroundColor = "black";
+    let red = randomInt(256);
+    let blue = randomInt(256);
+    let green = randomInt(256);
+
+    if (drawMode === "normal") {
+        divTarget.style.backgroundColor = "black";
+    }
+    else if (drawMode === "rainbow"){
+        divTarget.style.backgroundColor = `rgb(${red}, ${blue}, ${green})`;
+    }
+}
+
+function randomInt(maxExclusive) {
+    return Math.floor(Math.random() * maxExclusive);
 }
 
 

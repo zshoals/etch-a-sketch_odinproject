@@ -1,9 +1,16 @@
+body {
+    width: auto;
+    height: auto;
+}
+
 .etch-screen {
-    height: 300px;
-    width: 300px;
+    height: 760px;
+    width: 760px;
+    background-color: beige;
+    overflow: hidden;
 }
 
 .etch-box {
-    display: inline-block;
-    border: 1px solid black;
+    width: auto;
+    border: 1px solid rgba(0, 0, 0, 0.5);
 }
