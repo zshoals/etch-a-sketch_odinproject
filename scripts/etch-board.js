@@ -15,7 +15,8 @@ function generateDivArray(numberOfSquares) {
 function initializeDivArray(divArray, containingElement) {
     for (let i = 0; i < divArray.length; i++){
         setDivSize(divArray[i], containingElement);
-        setClassName(divArray[i], "etch-box");
+        setClass(divArray[i], "etch-box");
+        setEventListener(divArray[i]);
     }
     
     //huh?
@@ -30,6 +31,15 @@ function setDivSize(divTarget, containingElement) {
 function setClass(divTarget, className){
     //set a class for a respective divtarget with a
     //respective class name
+    divTarget.setAttribute("class", className);
+}
+
+function setEventListener(divTarget) {
+    divTarget.addEventListener("mouseover", () => draw(this));
+}
+
+function draw(divTarget) {
+    divTarget.setAttribute("background-color", "black");
 }
 
 
