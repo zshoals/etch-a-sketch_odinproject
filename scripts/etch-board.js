@@ -1,12 +1,25 @@
-//Etch-a-sketch steps
-    
-//Generate a list of divs and store it
-//In some sort of array
+//Etch-a-sketch 
 
-let drawMode = "rainbow";
+//Generate button events
+let buttonDrawNormal = document.querySelector("#button-drawmode-normal");
+buttonDrawNormal.addEventListener("click", () => {drawMode = "normal"});
+
+let buttonDrawRainbow = document.querySelector("#button-drawmode-rainbow");
+buttonDrawRainbow.addEventListener("click", () => {drawMode = "rainbow"});
+
+let buttonResize = document.querySelector("#button-resize");
+buttonResize.addEventListener("click", () => resizeScreen());
+
+let buttonReset = document.querySelector("#button-reset");
+buttonReset.addEventListener("click", () => { clearScreen(etchGrid); } );
+
+
+//Default initialization
+let drawMode = "normal";
 
 let squaresInRow = 50;
 let etchWindow = document.querySelector(".etch-screen");
+
 let etchGrid = generateDivArray(squaresInRow);
 
 initializeEtchScreen(squaresInRow, etchWindow);
@@ -75,6 +88,28 @@ function attachDivToContainer(divTarget, containingElement) {
     containingElement.appendChild(divTarget);
 }
 
+function clearScreen(divArray) {
+    divArray.forEach((item) => item.style.backgroundColor = "transparent");
+}
+
+function resizeScreen() {
+    let newSquareCount = prompt("Please enter a value of 50 squares or less.", "40");
+    clearScreen(etchGrid);
+
+    if (newSquareCount > 50) { newSquareCount = 50;}
+    else if (newSquareCount < 5) { return; }
+
+    squaresInRow = newSquareCount;
+    for (let i = 0; i < etchGrid.length; i++) {
+        etchWindow.removeChild(etchGrid[i]);
+    }
+    etchGrid = null;
+    etchGrid = generateDivArray(squaresInRow);
+
+    initializeEtchScreen(squaresInRow, etchWindow);
+    initializeEtchGrid(squaresInRow, etchGrid, etchWindow);
+}
+
 function draw(divTarget) {
     let red = randomInt(256);
     let blue = randomInt(256);
@@ -87,6 +122,7 @@ function draw(divTarget) {
         divTarget.style.backgroundColor = `rgb(${red}, ${blue}, ${green})`;
     }
 }
+
 
 function randomInt(maxExclusive) {
     return Math.floor(Math.random() * maxExclusive);
